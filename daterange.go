@@ -78,3 +78,12 @@ func (dr *DateRange) First(n int) []time.Time {
 
 	return dr.Entries()[:n]
 }
+
+func (dr *DateRange) Last(n int) []time.Time {
+	numberOfEntries := dr.Count()
+	if n >= numberOfEntries {
+		return dr.Entries()
+	}
+
+	return dr.Entries()[numberOfEntries-n:]
+}
