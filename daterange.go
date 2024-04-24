@@ -66,3 +66,7 @@ func (dr *DateRange) Eql(anotherDr DateRange) bool {
 func (dr *DateRange) Begin() time.Time {
 	return dr.begin
 }
+
+func (dr *DateRange) End() time.Time {
+	return dr.end
+}
