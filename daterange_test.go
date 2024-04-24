@@ -148,3 +148,16 @@ func TestBegin(t *testing.T) {
 		}
 	})
 }
+
+func TestEnd(t *testing.T) {
+	t.Run("End date should be equal to the last date of range", func(t *testing.T) {
+		t1 := time.Date(2024, 9, 28, 10, 10, 10, 10, time.UTC)
+		t2 := time.Date(2025, 1, 15, 22, 12, 15, 10, time.UTC)
+		end := time.Date(2025, 1, 15, 0, 0, 0, 0, time.UTC)
+		dr, _ := New(t1, t2)
+
+		if dr.End() != end {
+			t.Errorf("End is %s but should be %s\n", dr.End(), end)
+		}
+	})
+}
