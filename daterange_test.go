@@ -135,3 +135,16 @@ func TestEql(t *testing.T) {
 		}
 	})
 }
+
+func TestBegin(t *testing.T) {
+	t.Run("Begin date should be equal to the first date of range", func(t *testing.T) {
+		t1 := time.Date(2024, 9, 28, 10, 10, 10, 10, time.UTC)
+		t2 := time.Date(2025, 1, 15, 22, 12, 15, 10, time.UTC)
+		begin := time.Date(2024, 9, 28, 0, 0, 0, 0, time.UTC)
+		dr, _ := New(t1, t2)
+
+		if dr.Begin() != begin {
+			t.Errorf("Begin is %s but should be %s\n", dr.Begin(), begin)
+		}
+	})
+}
