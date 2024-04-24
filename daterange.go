@@ -35,9 +35,9 @@ func (dr *DateRange) In(date time.Time) bool {
 	midnightDate := time.Date(year, month, day, 0, 0, 0, 0, time.UTC)
 
 	boundValue := midnightDate == dr.begin || midnightDate == dr.end
-	inboundValue := midnightDate.After(dr.begin) && midnightDate.Before(dr.end)
+	inclusiveValue := midnightDate.After(dr.begin) && midnightDate.Before(dr.end)
 
-	return boundValue || inboundValue
+	return boundValue || inclusiveValue
 }
 
 func (dr *DateRange) Entries() []time.Time {
@@ -46,7 +46,7 @@ func (dr *DateRange) Entries() []time.Time {
 		end := dr.end
 
 		dr.entries = append(dr.entries, begin)
-		for begin.Before(end) {
+		for begin != end {
 			begin = begin.Add(time.Hour * 24)
 			dr.entries = append(dr.entries, begin)
 		}
