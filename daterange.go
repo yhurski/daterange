@@ -62,3 +62,7 @@ func (dr *DateRange) Count() int {
 func (dr *DateRange) Eql(anotherDr DateRange) bool {
 	return dr.begin == anotherDr.begin && dr.end == anotherDr.end
 }
+
+func (dr *DateRange) Begin() time.Time {
+	return dr.begin
+}
