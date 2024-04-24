@@ -161,3 +161,23 @@ func TestEnd(t *testing.T) {
 		}
 	})
 }
+
+func TestFirst(t *testing.T) {
+	t.Run("First should return first n items", func(t *testing.T) {
+		t1 := time.Date(2024, 1, 1, 10, 10, 10, 10, time.UTC)
+		t2 := time.Date(2025, 1, 15, 22, 12, 15, 10, time.UTC)
+		dr, _ := New(t1, t2)
+		items := dr.First(3)
+		datesToReturn := [...]time.Time{
+			time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC),
+			time.Date(2024, 1, 2, 0, 0, 0, 0, time.UTC),
+			time.Date(2024, 1, 3, 0, 0, 0, 0, time.UTC),
+		}
+
+		for i, date := range datesToReturn {
+			if date != items[i] {
+				t.Errorf("Date should be %s but is %s", date, items[i])
+			}
+		}
+	})
+}
