@@ -58,3 +58,7 @@ func (dr *DateRange) Entries() []time.Time {
 func (dr *DateRange) Count() int {
 	return len(dr.Entries())
 }
+
+func (dr *DateRange) Eql(anotherDr DateRange) bool {
+	return dr.begin == anotherDr.begin && dr.end == anotherDr.end
+}

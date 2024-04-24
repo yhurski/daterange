@@ -91,3 +91,19 @@ func TestCount(t *testing.T) {
 		}
 	})
 }
+
+func TestEql(t *testing.T) {
+	t.Run("Two ranges with the same begin and end dates should be the same", func(t *testing.T) {
+		t1 := time.Date(2024, 1, 1, 10, 10, 10, 10, time.UTC)
+		t2 := time.Date(2025, 1, 15, 22, 12, 15, 10, time.UTC)
+		dr, _ := New(t1, t2)
+
+		anotherT1 := time.Date(2024, 1, 1, 10, 12, 30, 22, time.UTC)
+		anotherT2 := time.Date(2025, 1, 15, 20, 00, 1, 2, time.UTC)
+		anotherDr, _ := New(anotherT1, anotherT2)
+
+		if !dr.Eql(*anotherDr) {
+			t.Error("Date should be the same")
+		}
+	})
+}
