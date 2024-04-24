@@ -70,3 +70,11 @@ func (dr *DateRange) Begin() time.Time {
 func (dr *DateRange) End() time.Time {
 	return dr.end
 }
+
+func (dr *DateRange) First(n int) []time.Time {
+	if n >= dr.Count() {
+		return dr.Entries()
+	}
+
+	return dr.Entries()[:n]
+}
