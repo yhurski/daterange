@@ -77,3 +77,17 @@ func TestEntries(t *testing.T) {
 		}
 	})
 }
+
+func TestCount(t *testing.T) {
+	t.Run("Count should return corrent number of items", func(t *testing.T) {
+		t1 := time.Date(2024, 1, 1, 10, 10, 10, 10, time.UTC)
+		t2 := time.Date(2025, 1, 15, 22, 12, 15, 10, time.UTC)
+		dr, _ := New(t1, t2)
+		items := dr.Count()
+		accurateItems := 366 + 15
+
+		if items != accurateItems {
+			t.Errorf("Entries should contain %d item but contains %d items", accurateItems, items)
+		}
+	})
+}
