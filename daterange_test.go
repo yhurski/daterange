@@ -163,7 +163,7 @@ func TestEnd(t *testing.T) {
 }
 
 func TestFirst(t *testing.T) {
-	t.Run("First should return first n items", func(t *testing.T) {
+	t.Run("First(n) should return first n items", func(t *testing.T) {
 		t1 := time.Date(2024, 1, 1, 10, 10, 10, 10, time.UTC)
 		t2 := time.Date(2025, 1, 15, 22, 12, 15, 10, time.UTC)
 		dr, _ := New(t1, t2)
@@ -178,6 +178,17 @@ func TestFirst(t *testing.T) {
 			if date != items[i] {
 				t.Errorf("Date should be %s but is %s", date, items[i])
 			}
+		}
+	})
+
+	t.Run("First(0) should return an empty slice", func(t *testing.T) {
+		t1 := time.Date(2024, 1, 1, 10, 10, 10, 10, time.UTC)
+		t2 := time.Date(2025, 1, 15, 22, 12, 15, 10, time.UTC)
+		dr, _ := New(t1, t2)
+		items := dr.First(0)
+
+		if len(items) > 0 {
+			t.Errorf("Number of items should be 0 but is %d", len(items))
 		}
 	})
 }
