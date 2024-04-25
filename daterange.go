@@ -87,3 +87,11 @@ func (dr *DateRange) Last(n int) []time.Time {
 
 	return dr.Entries()[numberOfEntries-n:]
 }
+
+// Returns true if anotherDr is between the begin and end of the range.
+func (dr *DateRange) Cover(anotherDr DateRange) bool {
+	beginInclusive := anotherDr.begin == dr.begin || anotherDr.begin.After(dr.begin)
+	endInclusive := anotherDr.end == dr.end || anotherDr.end.Before(dr.end)
+
+	return beginInclusive && endInclusive
+}
