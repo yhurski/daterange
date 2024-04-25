@@ -2,6 +2,7 @@ package daterange
 
 import (
 	"errors"
+	"fmt"
 	"time"
 )
 
@@ -94,4 +95,10 @@ func (dr *DateRange) Cover(anotherDr DateRange) bool {
 	endInclusive := anotherDr.end == dr.end || anotherDr.end.Before(dr.end)
 
 	return beginInclusive && endInclusive
+}
+
+// Returns string representation of the DateRange struct
+// useful in string formatting methods like Sprintf and friends
+func (dr *DateRange) String() string {
+	return fmt.Sprintf("%s - %s", dr.begin.Format("02-01-2006"), dr.end.Format("02-01-2006"))
 }
