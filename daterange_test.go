@@ -223,3 +223,55 @@ func TestLast(t *testing.T) {
 		}
 	})
 }
+
+func TestCover(t *testing.T) {
+	testData := []struct {
+		description      string
+		anotherBeginDate time.Time
+		anotherEndDate   time.Time
+		result           bool
+		errMessage       string
+	}{
+		{
+			description:      "Inclusive range should return true",
+			anotherBeginDate: time.Date(2024, 10, 30, 0, 0, 0, 0, time.UTC),
+			anotherEndDate:   time.Date(2025, 1, 10, 0, 0, 0, 0, time.UTC),
+			result:           true,
+			errMessage:       "Range %s should include %s\n",
+		},
+		{
+			description:      "Range should include itself",
+			anotherBeginDate: time.Date(2024, 9, 28, 10, 10, 10, 10, time.UTC),
+			anotherEndDate:   time.Date(2025, 1, 15, 22, 12, 15, 10, time.UTC),
+			result:           true,
+			errMessage:       "Range %s should include %s\n",
+		},
+		{
+			description:      "Range with begin date out of receving range shouldn't be included",
+			anotherBeginDate: time.Date(2024, 9, 27, 10, 10, 10, 10, time.UTC),
+			anotherEndDate:   time.Date(2025, 1, 12, 0, 0, 0, 0, time.UTC),
+			result:           false,
+			errMessage:       "Range %s shouldn't include %s\n",
+		},
+		{
+			description:      "Range with end date out of receving range shouldn't be included",
+			anotherBeginDate: time.Date(2024, 9, 30, 10, 10, 10, 10, time.UTC),
+			anotherEndDate:   time.Date(2025, 1, 16, 0, 0, 0, 0, time.UTC),
+			result:           false,
+			errMessage:       "Range %s shouldn't include %s\n",
+		},
+	}
+
+	for _, data := range testData {
+		t.Run(data.description, func(t *testing.T) {
+			t1 := time.Date(2024, 9, 28, 10, 10, 10, 10, time.UTC)
+			t2 := time.Date(2025, 1, 15, 22, 12, 15, 10, time.UTC)
+			dr, _ := New(t1, t2)
+			anotherDr, _ := New(data.anotherBeginDate, data.anotherEndDate)
+
+			if dr.Cover(*anotherDr) != data.result {
+				t.Errorf(data.errMessage, dr, anotherDr)
+			}
+		})
+	}
+}
